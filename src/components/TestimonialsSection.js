@@ -27,7 +27,7 @@ export default function TestimonialsSection() {
   ];
 
   return (
-    <section className="py-24 px-6 relative overflow-hidden" style={{backgroundColor: '#1A1F2E'}}>
+    <section id="testimonials" className="py-24 px-6 relative overflow-hidden bg-gray-900">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -38,7 +38,7 @@ export default function TestimonialsSection() {
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl lg:text-6xl font-bold text-white mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+          <h2 className="text-5xl lg:text-6xl font-bold text-white mb-6 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
             What Our Clients Say
           </h2>
           <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
@@ -50,7 +50,7 @@ export default function TestimonialsSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial) => (
             <div key={testimonial.id} className="group">
-              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/10 h-full flex flex-col">
+              <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-8 border border-pink-500/30 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 h-full flex flex-col">
                 {/* Star Rating */}
                 <div className="flex justify-center mb-6">
                   <div className="flex space-x-1">
@@ -68,7 +68,7 @@ export default function TestimonialsSection() {
                 </div>
 
                 {/* Quote */}
-                <blockquote className="text-white text-lg leading-relaxed mb-8 flex-1 text-center">
+                <blockquote className="text-gray-300 text-lg leading-relaxed mb-8 flex-1 text-center">
                   "{testimonial.quote}"
                 </blockquote>
 

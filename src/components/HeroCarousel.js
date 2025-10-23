@@ -103,9 +103,9 @@ export default function HeroCarousel() {
 
   if (loading) {
     return (
-      <section className="relative h-screen flex items-center justify-center" style={{backgroundColor: '#0F172B'}}>
+      <section className="relative h-[80vh] flex items-center justify-center bg-gray-900">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-400 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-pink-500 mx-auto mb-4"></div>
           <p className="text-white text-lg">Loading...</p>
         </div>
       </section>
@@ -114,7 +114,7 @@ export default function HeroCarousel() {
 
   if (error && slides.length === 0) {
     return (
-      <section className="relative h-screen flex items-center justify-center" style={{backgroundColor: '#0F172B'}}>
+      <section className="relative h-[80vh] flex items-center justify-center bg-gray-900">
         <div className="text-center">
           <div className="text-red-400 text-6xl mb-4">⚠️</div>
           <p className="text-white text-lg mb-2">Failed to load content</p>
@@ -125,7 +125,7 @@ export default function HeroCarousel() {
   }
 
   return (
-    <section className="relative h-screen overflow-hidden" style={{backgroundColor: '#0F172B'}}>
+    <section id="home" className="relative h-[80vh] overflow-hidden bg-gray-900">
       {/* Background Slides */}
       <div className="absolute inset-0">
         {slides.map((slide, index) => (
@@ -143,7 +143,7 @@ export default function HeroCarousel() {
               priority={index === 0}
             />
             {/* Dark overlay for better text readability */}
-            <div className="absolute inset-0 bg-black/50"></div>
+            <div className="absolute inset-0 bg-black/30"></div>
           </div>
         ))}
       </div>
@@ -152,32 +152,26 @@ export default function HeroCarousel() {
       <div className="relative z-10 h-full flex items-center">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 w-full">
           <div className="max-w-4xl">
-            {slides.length > 0 && (
-              <div className="animate-fadeInUp">
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
-                  <span className="bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
-                    {slides[currentSlide].title}
-                  </span>
-                </h1>
-                <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed max-w-3xl">
-                  {slides[currentSlide].description}
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <a
-                    href={slides[currentSlide].linkUrl}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/25 text-center"
-                  >
-                    Get Started
-                  </a>
-                  <a
-                    href="#about"
-                    className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 text-center"
-                  >
-                    Learn More
-                  </a>
-                </div>
+            <div className="animate-fadeInUp">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
+                <span className="bg-gradient-to-r from-pink-500 via-pink-400 to-purple-600 bg-clip-text text-transparent">
+                  LEADORA GLOBAL
+                </span>
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed max-w-3xl">
+                Leadora - Your Gateway To Online Success
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a
+                  href="http://leadoraglobal.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-pink-500/25 text-center"
+                >
+                  Get Started
+                </a>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>
@@ -187,7 +181,7 @@ export default function HeroCarousel() {
         <>
           <button
             onClick={prevSlide}
-            className="absolute left-4 md:left-8 top-1/2 transform -translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
+            className="absolute left-4 md:left-8 top-1/2 transform -translate-y-1/2 z-20 bg-gray-800/80 backdrop-blur-sm border border-pink-500/30 hover:bg-pink-500/20 text-pink-400 p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg"
             aria-label="Previous slide"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -196,7 +190,7 @@ export default function HeroCarousel() {
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-4 md:right-8 top-1/2 transform -translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
+            className="absolute right-4 md:right-8 top-1/2 transform -translate-y-1/2 z-20 bg-gray-800/80 backdrop-blur-sm border border-pink-500/30 hover:bg-pink-500/20 text-pink-400 p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg"
             aria-label="Next slide"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -215,8 +209,8 @@ export default function HeroCarousel() {
               onClick={() => goToSlide(index)}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 index === currentSlide
-                  ? 'bg-white scale-125'
-                  : 'bg-white/50 hover:bg-white/75'
+                  ? 'bg-pink-500 scale-125'
+                  : 'bg-pink-300 hover:bg-pink-400'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

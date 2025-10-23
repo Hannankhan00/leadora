@@ -38,7 +38,7 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="py-24 px-6 relative overflow-hidden" style={{backgroundColor: '#0F172B'}}>
+    <section id="faq" className="py-24 px-6 relative overflow-hidden bg-gray-900">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -50,7 +50,7 @@ export default function FAQSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           {/* Left Column - Header */}
           <div className="lg:col-span-4">
-            <h2 className="text-5xl lg:text-6xl font-bold text-white mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+            <h2 className="text-5xl lg:text-6xl font-bold text-white mb-6 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
               Frequently Asked Questions
             </h2>
             <p className="text-xl text-gray-300 leading-relaxed">
@@ -63,13 +63,13 @@ export default function FAQSection() {
             <div className="space-y-4">
               {faqs.map((faq, index) => (
                 <div key={faq.id} className="group">
-                  <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 overflow-hidden">
+                  <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl border border-pink-500/30 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
                     {/* Question */}
                     <button
                       onClick={() => toggleFAQ(index)}
-                      className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors duration-200"
+                      className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-pink-500/20 transition-colors duration-200"
                     >
-                      <h3 className="text-white text-lg font-semibold pr-4 group-hover:text-blue-300 transition-colors duration-300">
+                      <h3 className="text-white text-lg font-semibold pr-4 group-hover:text-pink-400 transition-colors duration-300">
                         {faq.question}
                       </h3>
                       <div className="flex-shrink-0">
@@ -92,11 +92,11 @@ export default function FAQSection() {
                         openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                       }`}
                     >
-                      <div className="px-8 pb-6">
-                        <p className="text-gray-300 leading-relaxed">
-                          {faq.answer}
-                        </p>
-                      </div>
+                    <div className="px-8 pb-6">
+                      <p className="text-gray-300 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
                     </div>
                   </div>
                 </div>

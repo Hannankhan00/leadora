@@ -75,7 +75,7 @@ export default function WhyChooseUs() {
   }, [isVisible]);
 
   return (
-    <section ref={sectionRef} className="text-white py-24 relative overflow-hidden" style={{backgroundColor: '#0F172B'}}>
+    <section ref={sectionRef} id="why-choose" className="text-white py-24 relative overflow-hidden bg-gray-900">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -86,7 +86,7 @@ export default function WhyChooseUs() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
             Why Choose Us?
           </h2>
           <p className="text-center text-gray-300 text-xl max-w-4xl mx-auto leading-relaxed">
@@ -130,13 +130,13 @@ export default function WhyChooseUs() {
               }
             ].map((advantage, index) => (
               <div key={index} className="group h-full">
-                <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/10 h-full min-h-[180px] flex flex-col">
+                <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 border border-pink-500/30 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 h-full min-h-[180px] flex flex-col">
                   <div className="flex items-start space-x-4 flex-1">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
+                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
                       {advantage.icon}
                     </div>
                     <div className="flex-1 flex flex-col justify-between">
-                      <h4 className="text-white text-lg font-semibold mb-3 group-hover:text-blue-300 transition-colors duration-300">
+                      <h4 className="text-white text-lg font-semibold mb-3 group-hover:text-pink-400 transition-colors duration-300">
                         {advantage.title}
                       </h4>
                       <p className="text-gray-300 text-sm leading-relaxed">
@@ -153,21 +153,21 @@ export default function WhyChooseUs() {
         {/* Statistics Cards - Single line */}
         <div className="mb-8">
           <div className="flex flex-col md:flex-row gap-6">
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 text-center flex-1">
-              <div className="text-3xl font-bold text-blue-400 mb-2 transition-all duration-300">
+            <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 border border-pink-500/30 shadow-lg text-center flex-1">
+              <div className="text-3xl font-bold text-pink-400 mb-2 transition-all duration-300">
                 {counts.customers}+
               </div>
               <div className="text-gray-300 text-sm">Happy Customers</div>
             </div>
             
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 text-center flex-1">
+            <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 border border-pink-500/30 shadow-lg text-center flex-1">
               <div className="text-3xl font-bold text-purple-400 mb-2 transition-all duration-300">
                 {counts.products}+
               </div>
               <div className="text-gray-300 text-sm">Premium Products</div>
             </div>
             
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 text-center flex-1">
+            <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 border border-pink-500/30 shadow-lg text-center flex-1">
               <div className="text-3xl font-bold text-green-400 mb-2 transition-all duration-300">
                 {counts.support}
               </div>
@@ -178,9 +178,14 @@ export default function WhyChooseUs() {
 
         {/* Call to Action - Centered below stats */}
         <div className="flex justify-center">
-          <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/25 w-full md:w-auto min-w-[200px]">
+          <a 
+            href="http://leadoraglobal.vercel.app/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-pink-500/25 w-full md:w-auto min-w-[200px] text-center inline-block"
+          >
             Join Us Today
-          </button>
+          </a>
         </div>
       </div>
     </section>
