@@ -6,24 +6,26 @@ export default function HeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   // Auto-play functionality
   useEffect(() => {
-    if (images.length === 0) return;
-    
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % images.length);
-    }, 5000);
+    // Only run the interval if there are images to slide through
+    if (images.length > 0) {
+      const interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % images.length);
+      }, 5000); // Change slide every 5 seconds
 
-    return () => clearInterval(interval);
+      return () => clearInterval(interval);
+    }
   }, [images.length]);
 
   const nextSlide = () => {
+    if (images.length === 0) return;
     setCurrentSlide((prev) => (prev + 1) % images.length);
   };
 
   const prevSlide = () => {
+    if (images.length === 0) return;
     setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
   };
 
@@ -31,7 +33,7 @@ export default function HeroCarousel() {
     setCurrentSlide(index);
   };
 
-  // Function to get fallback images
+  // Function to get fallback images (unchanged)
   const getFallbackImages = () => {
     return [
       {
@@ -40,7 +42,7 @@ export default function HeroCarousel() {
         alt: 'Business Success',
         title: 'Business Success',
         description: 'Professional business environment',
-        sortOrder: 0
+        sortOrder: 0,
       },
       {
         id: 2,
@@ -48,7 +50,7 @@ export default function HeroCarousel() {
         alt: 'Global Network',
         title: 'Global Network',
         description: 'Worldwide business connections',
-        sortOrder: 1
+        sortOrder: 1,
       },
       {
         id: 3,
@@ -56,66 +58,63 @@ export default function HeroCarousel() {
         alt: 'Team Collaboration',
         title: 'Team Collaboration',
         description: 'Working together for success',
-        sortOrder: 2
-      }
+        sortOrder: 2,
+      },
     ];
   };
 
+  // --- START OF UPDATED FUNCTION ---
   // Function to fetch images from API
   const fetchImagesFromAPI = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-      setError(null);
+      console.log('Attempting to fetch slider images from API...');
       
-      console.log('Fetching slider images from API...');
-      
-      const response = await fetch('https://leadoraglobal.vercel.app/api/slider-images');
-      
+      // Use the relative path to your API route.
+      // This avoids CORS issues when running on localhost.
+      const response = await fetch('/api/slider-images');
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`API fetch failed with status: ${response.status}`);
       }
-      
-      const data = await response.json();
-      console.log('API Response:', data);
-      
-      // Check if data is an array or if images are nested
-      const imageArray = Array.isArray(data) ? data : (data.images || data.data || []);
-      
-      if (!imageArray || imageArray.length === 0) {
-        console.warn('No images returned from API, using fallback images');
-        setImages(getFallbackImages());
-        setLoading(false);
-        return;
+
+      const apiData = await response.json();
+
+      // Check if API returned data and it's an array
+      if (!apiData || !Array.isArray(apiData) || apiData.length === 0) {
+        throw new Error('No images received from API');
       }
-      
-      // Format the images from API
-      const formattedImages = imageArray.map((item, index) => ({
-        id: item.id || index,
-        url: item.imageUrl || item.url || item.image,
-        alt: item.title || item.description || item.alt || `Slider Image ${index + 1}`,
-        title: item.title || '',
-        description: item.description || '',
-        linkUrl: item.linkUrl || '',
-        sortOrder: item.sortOrder !== undefined ? item.sortOrder : index
+
+      // Create formatted images array with the *actual* API data
+      const formattedImages = apiData.map((item, index) => ({
+        id: item.id,
+        url: item.imageUrl, // This matches the structure you had
+        alt: item.title || item.description || `Slider Image ${index + 1}`,
+        title: item.title,
+        description: item.description,
+        linkUrl: item.linkUrl,
+        sortOrder: item.sortOrder || index,
       }));
-      
+
       // Sort by sortOrder
       formattedImages.sort((a, b) => a.sortOrder - b.sortOrder);
-      
-      console.log('Formatted images:', formattedImages);
+
       setImages(formattedImages);
-      setLoading(false);
-      
+      console.log('Successfully loaded images from API:', formattedImages);
+      console.log('Total images:', formattedImages.length);
+
     } catch (error) {
-      console.error('Error fetching images:', error);
-      setError(error.message);
+      console.error('Error fetching images from API:', error);
+      console.log('Using fallback images instead.');
       
-      // Use fallback images on error
-      console.log('Using fallback images due to error');
+      // Use fallback images on any error
       setImages(getFallbackImages());
+    } finally {
       setLoading(false);
     }
   };
+  // --- END OF UPDATED FUNCTION ---
+
 
   // Fetch images on component mount
   useEffect(() => {
@@ -133,12 +132,13 @@ export default function HeroCarousel() {
 
   // Don't render if no images
   if (images.length === 0) {
-    return (
-      <section className="relative h-[80vh] overflow-hidden bg-slate-900 flex items-center justify-center">
-        <div className="text-white text-xl">No images available</div>
-      </section>
-    );
+    console.log('No images to display, rendering null.');
+    return null;
   }
+
+  // Debug: Show current slide info
+  // console.log('Current slide:', currentSlide, 'Total slides:', images.length);
+  // console.log('Current image:', images[currentSlide]);
 
   return (
     <section className="relative h-[80vh] overflow-hidden">
@@ -146,7 +146,7 @@ export default function HeroCarousel() {
       <div className="absolute inset-0 z-0">
         {images.map((image, index) => (
           <div
-            key={image.id}
+            key={image.id || index} // Use index as fallback key
             className={`absolute inset-0 transition-opacity duration-1000 ${
               index === currentSlide ? 'opacity-100' : 'opacity-0'
             }`}
@@ -155,11 +155,11 @@ export default function HeroCarousel() {
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
-              backgroundColor: '#1a1a1a',
-              zIndex: index === currentSlide ? 1 : 0
+              backgroundColor: '#1a1a1a', // Fallback background
+              zIndex: index === currentSlide ? 1 : 0,
             }}
           >
-            {/* Light overlay for text readability */}
+            {/* Very light overlay for text readability */}
             <div className="absolute inset-0 bg-black bg-opacity-20"></div>
           </div>
         ))}
@@ -228,7 +228,6 @@ export default function HeroCarousel() {
       <button
         onClick={prevSlide}
         className="absolute left-6 top-1/2 transform -translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 border border-white/20"
-        aria-label="Previous slide"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -238,7 +237,6 @@ export default function HeroCarousel() {
       <button
         onClick={nextSlide}
         className="absolute right-6 top-1/2 transform -translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 border border-white/20"
-        aria-label="Next slide"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -256,17 +254,9 @@ export default function HeroCarousel() {
                 ? 'bg-white shadow-lg shadow-white/50' 
                 : 'bg-white/50 hover:bg-white/75 hover:scale-110'
             }`}
-            aria-label={`Go to slide ${index + 1}`}
           />
         ))}
       </div>
-
-      {/* Error indicator (optional - remove in production) */}
-      {error && (
-        <div className="absolute top-4 right-4 z-20 bg-red-500/80 text-white px-4 py-2 rounded text-sm">
-          Using fallback images (API error)
-        </div>
-      )}
     </section>
   );
 }
